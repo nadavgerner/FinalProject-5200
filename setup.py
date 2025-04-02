@@ -1,0 +1,57 @@
+import os
+import requests
+import pandas as pd
+
+def fetch_and_save_df(name, url, params, chunk_size=1000, data_dir="data"):
+    """Requests JSON data from ArcGIS REST API url, converts to pd.DataFrame, and saves it to datafolder"""
+    all_records = []
+    offset = 0
+
+    while True:
+        paged_params = params.copy()
+        paged_params["resultOffset"] = offset
+        paged_params["resultRecordCount"] = chunk_size
+
+        response = requests.get(url, params=paged_params)
+        response.raise_for_status()
+        data = response.json()
+        
+        features = data.get("features", [])
+        if not features:
+            break 
+
+        for feature in features:
+            row = feature.get("attributes", {}).copy()
+            geometry = feature.get("geometry", {})
+            row["geometry_path"] = geometry.get("paths") or geometry.get("rings") or geometry.get("x") or None
+            all_records.append(row)
+
+        offset += chunk_size
+        print(f"Fetched {len(all_records)} records so far for {name}...")
+
+    # Save to DataFrame and file
+    df = pd.DataFrame(all_records)
+    os.makedirs(data_dir, exist_ok=True)
+    df.to_csv(os.path.join(data_dir, f"{name}.csv"), index=False)
+    print(f"Done: {name}: {len(df)} total records saved.")
+    return df
+
+trafic_params = {
+    "where": "1=1",
+    "outFields": "*",
+    "outSR": "4326",
+    "f": "json"
+}
+
+crash_params = {
+    "where": "REPORTDATE >= DATE '2023-01-01' AND REPORTDATE < DATE '2024-01-01'",
+    "outFields": "*",
+    "outSR": "4326",
+    "f": "json"
+}
+
+traffic_url = "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Transportation_TrafficVolume_WebMercator/MapServer/4/query"
+crash_url = "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Safety_WebMercator/MapServer/24/query"
+
+df_traffic = fetch_and_save_df("dc_traffic_volume_2023", traffic_url, trafic_params)
+df_crashes = fetch_and_save_df("dc_crashes", crash_url, crash_params)
