@@ -36,7 +36,7 @@ def fetch_and_save_df(name, url, params, chunk_size=1000, data_dir="data"):
     print(f"Done: {name}: {len(df)} total records saved.")
     return df
 
-trafic_params = {
+params = {
     "where": "1=1",
     "outFields": "*",
     "outSR": "4326",
@@ -52,6 +52,8 @@ crash_params = {
 
 traffic_url = "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Transportation_TrafficVolume_WebMercator/MapServer/4/query"
 crash_url = "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Safety_WebMercator/MapServer/24/query"
+crash_metadata_url = "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Safety_WebMercator/MapServer/25/query?where=1%3D1&outFields=*&outSR=4326&f=json" \
 
-df_traffic = fetch_and_save_df("dc_traffic_volume_2023", traffic_url, trafic_params)
+df_traffic = fetch_and_save_df("dc_traffic_volume_2023", traffic_url, params)
 df_crashes = fetch_and_save_df("dc_crashes", crash_url, crash_params)
+crashes_metadata = fetch_and_save_df("crashes_metadata", crash_metadata_url, params)
