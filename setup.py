@@ -90,7 +90,7 @@ traffic_url = "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Transpo
 crash_url = "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Safety_WebMercator/MapServer/24/query"
 crash_metadata_url = "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Safety_WebMercator/MapServer/25/query?where=1%3D1&outFields=*&outSR=4326&f=json" \
 
-fetch_and_save_df("dc_traffic_volume_2023", traffic_url, params)
-fetch_and_save_df("dc_crashes", crash_url, params)
-fetch_and_save_df("crashes_metadata", crash_metadata_url, params)
+# fetch_and_save_df("dc_traffic_volume_2023", traffic_url, params)
+# fetch_and_save_df("dc_crashes", crash_url, params)
+# fetch_and_save_df("crashes_metadata", crash_metadata_url, params)
 fetch_weather_data(start_date, end_date, lat, lon, weather_path)
