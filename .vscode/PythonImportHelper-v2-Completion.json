@@ -1,0 +1,119 @@
+[
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_and_save_df",
+        "kind": 2,
+        "importPath": "setup",
+        "description": "setup",
+        "peekOfCode": "def fetch_and_save_df(name, url, params, chunk_size=1000, data_dir=\"data\"):\n    \"\"\"Requests JSON data from ArcGIS REST API url, converts to pd.DataFrame, and saves it to datafolder\"\"\"\n    all_records = []\n    offset = 0\n    while True:\n        paged_params = params.copy()\n        paged_params[\"resultOffset\"] = offset\n        paged_params[\"resultRecordCount\"] = chunk_size\n        response = requests.get(url, params=paged_params)\n        response.raise_for_status()",
+        "detail": "setup",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_weather_data",
+        "kind": 2,
+        "importPath": "setup",
+        "description": "setup",
+        "peekOfCode": "def fetch_weather_data(start, end, latitude, longitude, output_csv):\n    base_url = \"https://archive-api.open-meteo.com/v1/archive\"\n    params = {\n        \"latitude\": latitude,\n        \"longitude\": longitude,\n        \"start_date\": start,\n        \"end_date\": end,\n        \"daily\": [\n            \"temperature_2m_max\",\n            \"temperature_2m_min\",",
+        "detail": "setup",
+        "documentation": {}
+    },
+    {
+        "label": "start_date",
+        "kind": 5,
+        "importPath": "setup",
+        "description": "setup",
+        "peekOfCode": "start_date = \"2019-01-01\"\nend_date = \"2024-12-31\"\nlat, lon = 38.9, -77.04\nweather_path = \"data/dc_weather_2019_2024.csv\"\nparams = {\n    \"where\": \"1=1\",\n    \"outFields\": \"*\",\n    \"outSR\": \"4326\",\n    \"f\": \"json\"\n}",
+        "detail": "setup",
+        "documentation": {}
+    },
+    {
+        "label": "end_date",
+        "kind": 5,
+        "importPath": "setup",
+        "description": "setup",
+        "peekOfCode": "end_date = \"2024-12-31\"\nlat, lon = 38.9, -77.04\nweather_path = \"data/dc_weather_2019_2024.csv\"\nparams = {\n    \"where\": \"1=1\",\n    \"outFields\": \"*\",\n    \"outSR\": \"4326\",\n    \"f\": \"json\"\n}\ncrash_params = {",
+        "detail": "setup",
+        "documentation": {}
+    },
+    {
+        "label": "weather_path",
+        "kind": 5,
+        "importPath": "setup",
+        "description": "setup",
+        "peekOfCode": "weather_path = \"data/dc_weather_2019_2024.csv\"\nparams = {\n    \"where\": \"1=1\",\n    \"outFields\": \"*\",\n    \"outSR\": \"4326\",\n    \"f\": \"json\"\n}\ncrash_params = {\n    \"where\": \"REPORTDATE >= DATE '2023-01-01' AND REPORTDATE < DATE '2024-01-01'\",\n    \"outFields\": \"*\",",
+        "detail": "setup",
+        "documentation": {}
+    },
+    {
+        "label": "params",
+        "kind": 5,
+        "importPath": "setup",
+        "description": "setup",
+        "peekOfCode": "params = {\n    \"where\": \"1=1\",\n    \"outFields\": \"*\",\n    \"outSR\": \"4326\",\n    \"f\": \"json\"\n}\ncrash_params = {\n    \"where\": \"REPORTDATE >= DATE '2023-01-01' AND REPORTDATE < DATE '2024-01-01'\",\n    \"outFields\": \"*\",\n    \"outSR\": \"4326\",    ",
+        "detail": "setup",
+        "documentation": {}
+    },
+    {
+        "label": "crash_params",
+        "kind": 5,
+        "importPath": "setup",
+        "description": "setup",
+        "peekOfCode": "crash_params = {\n    \"where\": \"REPORTDATE >= DATE '2023-01-01' AND REPORTDATE < DATE '2024-01-01'\",\n    \"outFields\": \"*\",\n    \"outSR\": \"4326\",    \n    \"f\": \"json\"\n}\ntraffic_url = \"https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Transportation_TrafficVolume_WebMercator/MapServer/4/query\"\ncrash_url = \"https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Safety_WebMercator/MapServer/24/query\"\ncrash_metadata_url = \"https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Safety_WebMercator/MapServer/25/query?where=1%3D1&outFields=*&outSR=4326&f=json\" \\\n# fetch_and_save_df(\"dc_traffic_volume_2023\", traffic_url, params)",
+        "detail": "setup",
+        "documentation": {}
+    },
+    {
+        "label": "traffic_url",
+        "kind": 5,
+        "importPath": "setup",
+        "description": "setup",
+        "peekOfCode": "traffic_url = \"https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Transportation_TrafficVolume_WebMercator/MapServer/4/query\"\ncrash_url = \"https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Safety_WebMercator/MapServer/24/query\"\ncrash_metadata_url = \"https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Safety_WebMercator/MapServer/25/query?where=1%3D1&outFields=*&outSR=4326&f=json\" \\\n# fetch_and_save_df(\"dc_traffic_volume_2023\", traffic_url, params)\n# fetch_and_save_df(\"dc_crashes\", crash_url, params)\n# fetch_and_save_df(\"crashes_metadata\", crash_metadata_url, params)\nfetch_weather_data(start_date, end_date, lat, lon, weather_path)",
+        "detail": "setup",
+        "documentation": {}
+    },
+    {
+        "label": "crash_url",
+        "kind": 5,
+        "importPath": "setup",
+        "description": "setup",
+        "peekOfCode": "crash_url = \"https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Safety_WebMercator/MapServer/24/query\"\ncrash_metadata_url = \"https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Safety_WebMercator/MapServer/25/query?where=1%3D1&outFields=*&outSR=4326&f=json\" \\\n# fetch_and_save_df(\"dc_traffic_volume_2023\", traffic_url, params)\n# fetch_and_save_df(\"dc_crashes\", crash_url, params)\n# fetch_and_save_df(\"crashes_metadata\", crash_metadata_url, params)\nfetch_weather_data(start_date, end_date, lat, lon, weather_path)",
+        "detail": "setup",
+        "documentation": {}
+    },
+    {
+        "label": "crash_metadata_url",
+        "kind": 5,
+        "importPath": "setup",
+        "description": "setup",
+        "peekOfCode": "crash_metadata_url = \"https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Safety_WebMercator/MapServer/25/query?where=1%3D1&outFields=*&outSR=4326&f=json\" \\\n# fetch_and_save_df(\"dc_traffic_volume_2023\", traffic_url, params)\n# fetch_and_save_df(\"dc_crashes\", crash_url, params)\n# fetch_and_save_df(\"crashes_metadata\", crash_metadata_url, params)\nfetch_weather_data(start_date, end_date, lat, lon, weather_path)",
+        "detail": "setup",
+        "documentation": {}
+    }
+]
